@@ -1,0 +1,9 @@
+c:\users\alex.nguyen\documents\visual studio 2013\Projects\TP_Pricer\TP_PricerTest\bin\Debug\TP_PricerTest.dll
+c:\users\alex.nguyen\documents\visual studio 2013\Projects\TP_Pricer\TP_PricerTest\bin\Debug\TP_PricerTest.pdb
+c:\users\alex.nguyen\documents\visual studio 2013\Projects\TP_Pricer\TP_PricerTest\bin\Debug\nunit.framework.dll
+c:\users\alex.nguyen\documents\visual studio 2013\Projects\TP_Pricer\TP_PricerTest\bin\Debug\nunit.framework.xml
+c:\users\alex.nguyen\documents\visual studio 2013\Projects\TP_Pricer\TP_PricerTest\obj\Debug\TP_PricerTest.csprojResolveAssemblyReference.cache
+c:\users\alex.nguyen\documents\visual studio 2013\Projects\TP_Pricer\TP_PricerTest\obj\Debug\TP_PricerTest.dll
+c:\users\alex.nguyen\documents\visual studio 2013\Projects\TP_Pricer\TP_PricerTest\obj\Debug\TP_PricerTest.pdb
+c:\users\alex.nguyen\documents\visual studio 2013\Projects\TP_Pricer\TP_PricerTest\bin\Debug\TP_Pricer.exe
+c:\users\alex.nguyen\documents\visual studio 2013\Projects\TP_Pricer\TP_PricerTest\bin\Debug\TP_Pricer.pdb
