@@ -8,6 +8,6 @@ namespace TP_Pricer
 {
     public interface IPricer
     {
-        double CalulateFullBond(Bond bond, IRepository<RateCurve> rate);
+        double CalulateFullBond(DateTime pricingDate);
     }
 }
