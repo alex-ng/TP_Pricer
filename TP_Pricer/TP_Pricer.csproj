@@ -58,6 +58,7 @@
     <Compile Include="IPricer.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="LinearInterpoler.cs" />
+    <Compile Include="Point.cs" />
     <Compile Include="Pricer.cs" />
     <Compile Include="RateCurve.cs" />
     <Compile Include="RateRepository.cs" />

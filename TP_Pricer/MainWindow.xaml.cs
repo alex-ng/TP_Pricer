@@ -36,13 +36,13 @@ namespace TP_Pricer
             ArrayList curve = (ArrayList)pr._repo.GetListByDate(emission);
 
 
-            double test = pr._interpoler.Calculate(header, curve, 0.44);
+            //double test = pr._interpoler.Calculate(header, curve, 0.44);
 
             //var tmp = pr._repo.GetAll();
 
             //var tmp2 = tmp._rateCurve[emission];
 
-            //var tmp = pr.CalulateFullBond(princingDate);
+            var tmp = pr.CalulateFullBond(emission, princingDate);
 
             //double res = (maturity - emission).TotalDays;
 
