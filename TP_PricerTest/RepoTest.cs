@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
@@ -14,72 +15,37 @@ namespace TP_PricerTest
     [TestFixture]
     public class RepoTest
     {
-        //[Test]
-        //public void Load_CSV_Into_Datatable_Got_Right_Column()
-        //{
-        //    string path = "taux2.csv";
+        [Test]
+        public void Load_CSV_File_GetHeader()
+        {
+            string path = "tauxlineaire.csv";
+            IRepository<RateCurve> repo = new RateRepository();
+            repo.LoadFile(path);
 
-        //    RateRepository repo = new RateRepository();
-        //    repo.LoadCSVFile(path);
-        //    var row = repo._data.Rows;
-        //    var col = repo._data.Columns;
+            ArrayList header = (ArrayList)repo.GetHeader();
+            ArrayList tmp = new ArrayList();
+            tmp.Add(" ZC025YR");
+            tmp.Add(" ZC050YR");
 
-        //    var tmp = row[1]["Date"].ToString();
+            Assert.AreEqual(tmp, header);
+        }
 
-        //    DateTime date = new DateTime();
-        //    //date = DateTime.ParseExact(tmp, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-        //    Assert.AreEqual(" ZC025YR", col[1].ToString());
-        //}
+        [Test]
+        public void Load_CSV_File_GetValue()
+        {
+            string path = "tauxlineaire.csv";
+            IRepository<RateCurve> repo = new RateRepository();
+            repo.LoadFile(path);
 
-        //[Test]
-        //public void Load_CSV_Into_Datatable_Got_Right_Date()
-        //{
-        //    string path = "taux2.csv";
+            DateTime date = new DateTime(1993, 01, 01);
 
-        //    RateRepository repo = new RateRepository();
-        //    repo.LoadCSVFile(path);
-        //    var row = repo._data.Rows;
-        //    var col = repo._data.Columns;
+            ArrayList curve = (ArrayList)repo.GetListByDate(date);
+            ArrayList tmp = new ArrayList();
+            tmp.Add("1.1");
+            tmp.Add("1.1");
 
-        //    var tmp = row[1]["Date"].ToString();
-
-        //    DateTime date = new DateTime();
-        //    date = DateTime.ParseExact(tmp, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-        //    DateTime totest = new DateTime(1993, 01, 04);
-
-        //    Assert.AreEqual(String.Format("dd/MM/yyyy", totest), String.Format("dd/MM/yyyy", date));
-        //}
-
-        //[Test]
-        //public void Load_CSV_Into_Datatable_Got_Right_Value_At_Date_And_Periodicity()
-        //{
-        //    string path = "taux2.csv";
-
-        //    RateRepository repo = new RateRepository();
-        //    repo.LoadCSVFile(path);
-        //    var row = repo._data.Rows;
-        //    var col = repo._data.Columns;
-
-        //    Assert.AreEqual(" 0.0680790380", row[1][" ZC025YR"]);
-        //}
-
-        //[Test]
-        //public void __()
-        //{
-        //    string path = "taux2.csv";
-
-        //    RateRepository repo = new RateRepository();
-        //    repo.LoadCSVFile(path);
-        //    var row = repo._data.Rows;
-        //    var col = repo._data.Columns;
-
-        //    var tmp = row[1]["Date"].ToString();
-
-        //    //DateTime date = new DateTime();
-        //    //date = DateTime.ParseExact(tmp, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-        //    Assert.AreEqual(25, repo.StringToInt(col[1].ToString()));
-        //}
-
+            Assert.AreEqual(tmp, curve);
+        }
     }
 }
  

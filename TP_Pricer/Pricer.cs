@@ -26,12 +26,13 @@ namespace TP_Pricer
             //_repo.LoadFile("tauxlineaire.csv");
         }
 
+
         private double StringToInt(string str)
         {
-            double res = -1.00;
+            double res = -1;
 
             string tmp = Regex.Match(str, @"\d+").Value;
-            res = Convert.ToDouble(tmp);
+            res = Convert.ToInt32(tmp);
             return res;
         }
 
@@ -49,21 +50,18 @@ namespace TP_Pricer
             double month = 12 * _bond._periodicity;
             double alpha = (date.AddMonths(Convert.ToInt32(month)) - pricingDate).TotalDays / 365;
             double periodicity = 0;
+            double count = (StringToInt(header[header.Count - 1].ToString())) / 10;
 
-            for (int i = 0; i < header.Count; i++)
+            while (count >= periodicity)
             {
-                double indice = StringToInt(header[i].ToString()) / 100;
-                if (indice > (periodicity + alpha))
-                {
-                    double acturialRate = _interpoler.Calculate(header, curve, (periodicity + alpha));
-                    if (i == header.Count - 1)
-                        result += (_bond._nominal + bondValue) / Math.Pow((1 + acturialRate), periodicity + alpha);
-                    else
-                        result += bondValue / Math.Pow((1 + acturialRate), periodicity + alpha);
-                    periodicity += _bond._periodicity;
-                }
+                double acturialRate = _interpoler.Calculate(header, curve, (periodicity + alpha));
+                if (count == periodicity)
+                    result += (_bond._nominal + bondValue) / Math.Pow((1 + acturialRate), periodicity + alpha);
+                else
+                    result += bondValue / Math.Pow((1 + acturialRate), periodicity + alpha);
+                periodicity += _bond._periodicity;
             }
-               
+
             return result;
         }
 

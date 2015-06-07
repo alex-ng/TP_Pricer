@@ -11,3 +11,16 @@ c:\users\alex.nguyen\documents\visual studio 2013\Projects\TP_Pricer\TP_Pricer\b
 c:\users\alex.nguyen\documents\visual studio 2013\Projects\TP_Pricer\TP_Pricer\bin\Debug\TP_Pricer.pdb
 c:\users\alex.nguyen\documents\visual studio 2013\Projects\TP_Pricer\TP_Pricer\obj\Debug\TP_Pricer.exe
 c:\users\alex.nguyen\documents\visual studio 2013\Projects\TP_Pricer\TP_Pricer\obj\Debug\TP_Pricer.pdb
+C:\Users\Alex NGUYEN\Desktop\TP_Pricer\TP_Pricer\bin\Debug\TP_Pricer.exe.config
+C:\Users\Alex NGUYEN\Desktop\TP_Pricer\TP_Pricer\obj\Debug\TP_Pricer.exe
+C:\Users\Alex NGUYEN\Desktop\TP_Pricer\TP_Pricer\obj\Debug\TP_Pricer.pdb
+C:\Users\Alex NGUYEN\Desktop\TP_Pricer\TP_Pricer\bin\Debug\TP_Pricer.exe
+C:\Users\Alex NGUYEN\Desktop\TP_Pricer\TP_Pricer\bin\Debug\TP_Pricer.pdb
+C:\Users\Alex NGUYEN\Desktop\TP_Pricer\TP_Pricer\obj\Debug\TP_Pricer.csprojResolveAssemblyReference.cache
+C:\Users\Alex NGUYEN\Desktop\TP_Pricer\TP_Pricer\obj\Debug\MainWindow.baml
+C:\Users\Alex NGUYEN\Desktop\TP_Pricer\TP_Pricer\obj\Debug\MainWindow.g.cs
+C:\Users\Alex NGUYEN\Desktop\TP_Pricer\TP_Pricer\obj\Debug\App.g.cs
+C:\Users\Alex NGUYEN\Desktop\TP_Pricer\TP_Pricer\obj\Debug\TP_Pricer_MarkupCompile.cache
+C:\Users\Alex NGUYEN\Desktop\TP_Pricer\TP_Pricer\obj\Debug\TP_Pricer.g.resources
+C:\Users\Alex NGUYEN\Desktop\TP_Pricer\TP_Pricer\obj\Debug\TP_Pricer.Properties.Resources.resources
+C:\Users\Alex NGUYEN\Desktop\TP_Pricer\TP_Pricer\obj\Debug\TP_Pricer.csproj.GenerateResource.Cache
