@@ -9,6 +9,14 @@ namespace TP_Pricer
 {
     public class RateCurve
     {
-        public Hashtable _rateCurve { get; set; }
+        public DateTime Date { get; set; }
+        public List<RateCurveItem> Items { get; set; }
+
+        public RateCurve(DateTime date, List<RateCurveItem> item)
+        {
+            Date = date;
+            Items = item;
+
+        }
     }
 }

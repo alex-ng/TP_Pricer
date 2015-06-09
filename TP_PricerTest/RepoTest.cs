@@ -16,35 +16,18 @@ namespace TP_PricerTest
     public class RepoTest
     {
         [Test]
-        public void Load_CSV_File_GetHeader()
+        public void Repo_Get_RateCurve_By_Date()
         {
-            string path = "tauxlineaire.csv";
-            IRepository<RateCurve> repo = new RateRepository();
-            repo.LoadFile(path);
-
-            ArrayList header = (ArrayList)repo.GetHeader();
-            ArrayList tmp = new ArrayList();
-            tmp.Add(" ZC025YR");
-            tmp.Add(" ZC050YR");
-
-            Assert.AreEqual(tmp, header);
-        }
-
-        [Test]
-        public void Load_CSV_File_GetValue()
-        {
-            string path = "tauxlineaire.csv";
-            IRepository<RateCurve> repo = new RateRepository();
-            repo.LoadFile(path);
-
+           RateRepository repo = new RateRepository(TP_Pricer.DataRessources.tauxtest);
             DateTime date = new DateTime(1993, 01, 01);
+            List<RateCurveItem> list = new List<RateCurveItem>();
+            list.Add(new RateCurveItem(0.25, 1.1));
+            list.Add(new RateCurveItem(0.50, 1.1));
 
-            ArrayList curve = (ArrayList)repo.GetListByDate(date);
-            ArrayList tmp = new ArrayList();
-            tmp.Add("1.1");
-            tmp.Add("1.1");
+            RateCurve r = new RateCurve(date, list);
+            RateCurve res = repo.GetRateCurveByDate(date);
 
-            Assert.AreEqual(tmp, curve);
+            Assert.AreEqual(0.0030135, res.Items[1].Rate);
         }
     }
 }

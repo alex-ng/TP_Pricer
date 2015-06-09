@@ -4,14 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using System.Collections;
 
 namespace TP_Pricer
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository
     {
-        void LoadFile(string path);
-        T GetAll();
-        Object GetListByDate(DateTime date);
-        Object GetHeader();
+        RateCurve GetRateCurveByDate(DateTime date);
     }
 }

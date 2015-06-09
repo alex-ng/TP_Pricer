@@ -7,88 +7,115 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Collections;
 using System.Globalization;
+using System.Reflection;
 
 namespace TP_Pricer
 {
-    public class RateRepository : IRepository<RateCurve>
+    public class RateRepository : IRepository
     {
-        private RateCurve _data;
+        DataTable _data = new DataTable();
+        List<RateCurve> _rateCurve = new List<RateCurve>();
 
-        private void FillRateCurve(DataTable dt)
+        public RateRepository(string data)
         {
-            _data = new RateCurve();
-            _data._rateCurve = new Hashtable();
-            ArrayList _header = new ArrayList();
-            var rows = dt.Rows;
-            var columns = dt.Columns;
+            LoadData(data);
+        }
+
+        private double StringToDouble(string str)
+        {
+            double res = -1;
+
+            string tmp = Regex.Match(str, @"\d+").Value;
+            res = Convert.ToInt32(tmp);
+            return res;
+        }
+
+        private void FillRateCurve()
+        {
+            var rows = _data.Rows;
+            var columns = _data.Columns;
             DateTime date = new DateTime();
             string strDate;
+            List<double> duration = new List<double>();
+            List<double> rate = new List<double>();
 
-            // Add Header of <string, ArrayList> into Hashtable
             foreach (var col in columns.Cast<DataColumn>().Skip(1))
             {
                 if (!col.ToString().Equals(" "))
-                    _header.Add(col.ToString());
+                {
+                    double durationValue = StringToDouble(col.ToString()) / 100;
+                    duration.Add(durationValue);
+                }
             }
-            _data._rateCurve.Add(columns[0].ToString(), _header);
-
-            // Add Rate Curve of <Date, ArrayList> into Hashtable
 
             for (int keyIdx = 0; keyIdx < rows.Count; keyIdx++)
             {
-                ArrayList tmp = new ArrayList();
+                List<RateCurveItem> tmp = new List<RateCurveItem>();
+                strDate = rows[keyIdx]["Date"].ToString();
+                date = DateTime.ParseExact(strDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                rate.Clear();
+
                 foreach (var col in columns.Cast<DataColumn>().Skip(1))
                 {
                     var val = rows[keyIdx][col.ToString()];
                     if (!val.Equals(" "))
                     {
                         if (val.Equals(" na"))
-                            tmp.Add(val.ToString());
+                            rate.Add(-1);
                         else
-                            tmp.Add(Convert.ToDouble(val.ToString().Replace('.', ',')));
+                            rate.Add(Convert.ToDouble(val.ToString().Replace('.', ',')));
                     }
                 }
-                strDate = rows[keyIdx]["Date"].ToString();
-                date = DateTime.ParseExact(strDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                _data._rateCurve.Add(date, tmp);
-            }
-        }
 
-        public void LoadFile(string path)
-        {
-            StreamReader sr = new StreamReader(path);
-            string[] headers = sr.ReadLine().Split(';');
-            DataTable dt = new DataTable();
-            foreach (string header in headers)
-            {
-                dt.Columns.Add(header);
-            }
-            while (!sr.EndOfStream)
-            {
-                string[] rows = sr.ReadLine().Split(';');
-                DataRow dr = dt.NewRow();
-                for (int i = 0; i < headers.Length; i++)
+                for (int i = 0; i < duration.Count; i++)
                 {
-                    dr[i] = rows[i];
+                    tmp.Add(new RateCurveItem(duration[i], rate[i]));
                 }
-                dt.Rows.Add(dr);
+
+                _rateCurve.Add(new RateCurve(date, tmp));
             }
-            FillRateCurve(dt);
         }
 
-        public RateCurve GetAll()
+        private void LoadData(string data)
         {
-            return _data;
+            StringReader sr = new StringReader(data);
+            string[] rows = sr.ReadLine().Split(';');
+            string line;
+            DataTable dt = new DataTable();
+            foreach (string header in rows)
+            {
+                if (header != " ")
+                    dt.Columns.Add(header);
+            }
+            while (true)
+            {
+                line = sr.ReadLine();
+                if (line != null)
+                {
+                    rows = line.Split(';');
+                    DataRow dr = dt.NewRow();
+                    for (int i = 0; i < rows.Length - 1; i++)
+                    {
+                        dr[i] = rows[i];
+                    }
+                    dt.Rows.Add(dr);
+                }
+                else
+                    break;
+            }
+            _data = dt;
+            FillRateCurve();
         }
 
-        public Object GetListByDate(DateTime date)
+        public RateCurve GetRateCurveByDate(DateTime date)
         {
-            return _data._rateCurve[date];
-        }
-
-        public Object GetHeader()
-        {
-            return _data._rateCurve["Date"];
+            foreach (var item in _rateCurve)
+            {
+                if (item.Date.Equals(date) && !item.Items[0].Rate.Equals(-1))
+                    return item;
+            }
+            return GetRateCurveByDate(date.AddDays(1));
         }
     }
 }

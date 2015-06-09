@@ -16,9 +16,9 @@ namespace TP_Pricer
             this.strategy = strat;
         }
 
-        public double Calculate(ArrayList header, ArrayList curve, double alpha)
+        public double Calculate(RateCurve rateCurve, double x)
         {
-            return strategy.CalculateInterpolation(header, curve, alpha);
+            return strategy.CalculateInterpolation(rateCurve, x);
         }
     }
 }

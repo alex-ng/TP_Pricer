@@ -10,67 +10,69 @@ namespace TP_Pricer
 {
     public class Pricer : IPricer
     {
-        public Bond _bond { get; private set; }
-        public Interpoler _interpoler { get; private set; }
-        public IRepository<RateCurve> _repo { get; private set; }
-        public List<Point> _point { get; private set; }
+        public Bond BondSpec { get; private set; }
+        public Interpoler Inter { get; private set; }
+        public RateRepository Repo { get; private set; }
+        public List<Point> PointGraph { get; private set; }
 
-        public Pricer(DateTime emission, DateTime maturity, double periodicity,
-            double nominal, double rate)
+        public Pricer(Bond spec, string data)
         {
-            _bond = new Bond(emission, maturity, periodicity, nominal, rate);
-            _interpoler = new Interpoler(new LinearInterpoler());
-            _repo = new RateRepository();
-            //_repo.LoadFile("tauxtest.csv");
-            _repo.LoadFile("taux2.csv");
-            //_repo.LoadFile("tauxlineaire.csv");
-        }
-
-
-        private double StringToInt(string str)
-        {
-            double res = -1;
-
-            string tmp = Regex.Match(str, @"\d+").Value;
-            res = Convert.ToInt32(tmp);
-            return res;
+            BondSpec = new Bond(spec.EmissionDate, spec.Maturity, spec.Periodicity, spec.Nominal, spec.Rate);
+            Inter = new Interpoler(new LinearInterpoler());
+            Repo = new RateRepository(data);
+            PointGraph = new List<Point>();
         }
 
         private double CalculateCouponValue()
         {
-            return (_bond._nominal * _bond._rate * _bond._periodicity);
+            return (BondSpec.Nominal * BondSpec.Rate * BondSpec.Periodicity);
         }
 
-        public double CalulateFullBond(DateTime date, DateTime pricingDate)
+        private double CalculateAlphaValue(Bond bond, DateTime pricingDate)
         {
-            double result = 0.00;
-            ArrayList header = (ArrayList)_repo.GetHeader();
-            ArrayList curve = (ArrayList)_repo.GetListByDate(pricingDate);
-            double bondValue = CalculateCouponValue();
-            double month = 12 * _bond._periodicity;
-            double alpha = (date.AddMonths(Convert.ToInt32(month)) - pricingDate).TotalDays / 365;
-            double periodicity = 0;
-            double count = (StringToInt(header[header.Count - 1].ToString())) / 10;
+            double res = 0;
+            double month = 12 * bond.Periodicity;
 
-            while (count >= periodicity)
+            res = (bond.EmissionDate.AddMonths(Convert.ToInt32(month)) - pricingDate).TotalDays / 365;
+
+            return res;
+        }
+
+        private int CountTillMaturity(Bond bond, DateTime pricingDate)
+        {
+            int count = 0;
+            int month = Convert.ToInt32(12 * bond.Periodicity);
+
+            while (pricingDate.CompareTo(bond.Maturity) < 0)
             {
-                double acturialRate = _interpoler.Calculate(header, curve, (periodicity + alpha));
-                if (count == periodicity)
-                    result += (_bond._nominal + bondValue) / Math.Pow((1 + acturialRate), periodicity + alpha);
+               pricingDate = pricingDate.AddMonths(month);
+               count++;
+            }
+            return count;
+        }
+
+        public double CalculateFullBond(Bond bond, DateTime pricingDate)
+        {
+            double res = 0;
+            double indice = 0;
+            double couponValue = CalculateCouponValue();
+            RateCurve currentRateCurve = Repo.GetRateCurveByDate(pricingDate);
+            double alpha = Math.Round(CalculateAlphaValue(bond, pricingDate), 2);
+
+            int count = CountTillMaturity(bond, pricingDate);
+
+            while (count != 0)
+            {
+                double acturialRate = Inter.Calculate(currentRateCurve, indice + alpha);
+                if (count == 1)
+                    res += (bond.Nominal + couponValue) / Math.Pow((1 + acturialRate), indice + alpha);
                 else
-                    result += bondValue / Math.Pow((1 + acturialRate), periodicity + alpha);
-                periodicity += _bond._periodicity;
+                    res += couponValue / Math.Pow((1 + acturialRate), indice + alpha);
+                indice += bond.Periodicity;
+                count--;
             }
-
-            return result;
+            return res;
         }
 
-        public void CalculateFullBondToMaturity(DateTime date, DateTime pricingDate)
-        {
-            while (date.CompareTo(_bond._maturity) > 0)
-            {
-                date.AddMonths(Convert.ToInt32(12 * _bond._periodicity));
-            }
-        }
     }
 }

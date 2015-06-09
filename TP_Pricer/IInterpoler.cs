@@ -9,6 +9,6 @@ namespace TP_Pricer
 {
     public interface IInterpoler
     {
-        double CalculateInterpolation(ArrayList header, ArrayList curve, double alpha);
+        double CalculateInterpolation(RateCurve rateCurve, double x);
     }
 }

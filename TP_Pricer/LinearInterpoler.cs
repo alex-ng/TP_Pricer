@@ -11,50 +11,26 @@ namespace TP_Pricer
 {
     public class LinearInterpoler : IInterpoler
     {
-        private double StringToInt(string str)
+        public double CalculateInterpolation(RateCurve rateCurve, double alpha)
         {
-            double res = -1.00;
 
-            string tmp = Regex.Match(str, @"\d+").Value;
-            res = Convert.ToDouble(tmp);
-            return res;
-        }
-
-        //public double CalculateInterpolation(IRepository<RateCurve> rateCurve, double alpha, DateTime date)
-        //{
-        //    double acturialRate = 0.00;
-        //    ArrayList header = (ArrayList)rateCurve.GetHeader();
-        //    ArrayList curve = (ArrayList)rateCurve.GetListByDate(date);
-        //    double x1, y1, x2, y2 = 0.00;
-        //    int idx = 0;
-
-        //    for (int i = 0; StringToInt(header[i].ToString()) < alpha; i++)
-        //        idx++;
-
-        //    x2 = StringToInt(header[idx + 1].ToString()) / 100;
-        //    x1 = StringToInt(header[idx].ToString()) / 100;
-        //    y2 = Convert.ToDouble(curve[idx + 1]);
-        //    y1 = Convert.ToDouble(curve[idx]);
-
-        //    acturialRate = ((x2 - alpha) / (x2 - x1) * y1) + ((alpha - x1) / (x2 - x1) * y2);
-
-        //    return acturialRate;
-        //}
-
-        public double CalculateInterpolation(ArrayList header, ArrayList curve, double alpha)
-        {
             double acturialRate = 0.00;
             double x1, y1, x2, y2 = 0.00;
             int idx = 0;
 
-            for (int i = 0; StringToInt(header[i].ToString()) < alpha; i++)
+            foreach (var item in rateCurve.Items)
+            {
+                if (item.Duration < alpha)
+                    break;
                 idx++;
+            }
 
-            x2 = StringToInt(header[idx + 1].ToString()) / 100;
-            x1 = StringToInt(header[idx].ToString()) / 100;
-            y2 = Convert.ToDouble(curve[idx + 1]);
-            y1 = Convert.ToDouble(curve[idx]);
-
+            x1 = rateCurve.Items[idx].Duration;
+            x2 = rateCurve.Items[idx + 1].Duration;
+            y1 = rateCurve.Items[idx].Rate;
+            y2 = rateCurve.Items[idx + 1].Rate;
+            
+            
             acturialRate = ((x2 - alpha) / (x2 - x1) * y1) + ((alpha - x1) / (x2 - x1) * y2);
 
             return acturialRate;

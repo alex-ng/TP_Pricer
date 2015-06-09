@@ -53,6 +53,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataRessources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataRessources.resx</DependentUpon>
+    </Compile>
     <Compile Include="IInterpoler.cs" />
     <Compile Include="Interpoler.cs" />
     <Compile Include="IPricer.cs" />
@@ -61,6 +66,7 @@
     <Compile Include="Point.cs" />
     <Compile Include="Pricer.cs" />
     <Compile Include="RateCurve.cs" />
+    <Compile Include="RateCurveItem.cs" />
     <Compile Include="RateRepository.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -90,6 +96,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="DataRessources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DataRessources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -99,6 +109,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Resources\taux2.csv" />
+    <None Include="Resources\tauxlineaire.csv" />
+    <None Include="Resources\tauxtest.csv" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

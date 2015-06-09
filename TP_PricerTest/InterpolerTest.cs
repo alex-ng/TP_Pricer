@@ -13,18 +13,29 @@ namespace TP_PricerTest
     public class InterpolerTest
     {
         [Test]
-        public void Check_Calculate_Interpoler_Value_On_Linear_Rate()
+        public void Calculate_Interpolation_On_Linear_RateCurve()
         {
-            string path = "tauxlineaire.csv";
-            IRepository<RateCurve> repo = new RateRepository();
-            Interpoler inter = new Interpoler(new LinearInterpoler);
-            repo.LoadFile(path);
+            RateRepository repo = new RateRepository(TP_Pricer.DataRessources.tauxlineaire);
+            Interpoler inter = new Interpoler(new LinearInterpoler());
             DateTime date = new DateTime(1993, 01, 01);
-            ArrayList curve = (ArrayList)repo.GetListByDate(date);
-            ArrayList header = (ArrayList)repo.GetHeader();
 
-            double res = inter.Calculate(header, curve, 0.44);
-            Assert.AreEqual(1.1, res);
+            RateCurve res = repo.GetRateCurveByDate(date);
+            double acturial = inter.Calculate(res, 0.44);
+
+            Assert.AreEqual(1.1, acturial);
+        }
+
+        [Test]
+        public void Calculate_Interpolation_On_Normal_RateCurve()
+        {
+            RateRepository repo = new RateRepository(TP_Pricer.DataRessources.tauxtest);
+            Interpoler inter = new Interpoler(new LinearInterpoler());
+            DateTime date = new DateTime(1993, 01, 01);
+
+            RateCurve res = repo.GetRateCurveByDate(date);
+            double acturial =inter.Calculate(res, 0.44);
+
+            Assert.AreEqual(0.00274500648, acturial);
         }
     }
 }

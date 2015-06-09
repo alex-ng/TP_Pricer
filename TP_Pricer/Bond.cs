@@ -8,20 +8,20 @@ namespace TP_Pricer
 {
     public class Bond
     {
-        public DateTime _emissionDate { get; private set; }
-        public DateTime _maturity { get; private set; }
-        public double _periodicity { get; private set; }
-        public double _nominal { get; private set; }
-        public double _rate { get; private set; }
+        public DateTime EmissionDate { get; private set; }
+        public DateTime Maturity { get; private set; }
+        public double Periodicity { get; private set; }
+        public double Nominal { get; private set; }
+        public double Rate { get; private set; }
 
         public Bond(DateTime emission, DateTime maturity, double periodicity,
             double nominal, double rate)
         {
-            _emissionDate = emission;
-            _maturity = maturity;
-            _periodicity = periodicity;
-            _nominal = nominal;
-            _rate = rate;
+            EmissionDate = emission;
+            Maturity = maturity;
+            Periodicity = periodicity;
+            Nominal = nominal;
+            Rate = rate;
         }
     }
 }
