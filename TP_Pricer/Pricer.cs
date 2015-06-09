@@ -13,14 +13,12 @@ namespace TP_Pricer
         public Bond BondSpec { get; private set; }
         public Interpoler Inter { get; private set; }
         public RateRepository Repo { get; private set; }
-        public List<Point> PointGraph { get; private set; }
 
         public Pricer(Bond spec, string data)
         {
             BondSpec = new Bond(spec.EmissionDate, spec.Maturity, spec.Periodicity, spec.Nominal, spec.Rate);
             Inter = new Interpoler(new LinearInterpoler());
             Repo = new RateRepository(data);
-            PointGraph = new List<Point>();
         }
 
         private double CalculateCouponValue()
@@ -57,13 +55,13 @@ namespace TP_Pricer
             double indice = 0;
             double couponValue = CalculateCouponValue();
             RateCurve currentRateCurve = Repo.GetRateCurveByDate(pricingDate);
-            double alpha = Math.Round(CalculateAlphaValue(bond, pricingDate), 2);
+            double alpha = CalculateAlphaValue(bond, pricingDate);
 
             int count = CountTillMaturity(bond, pricingDate);
 
             while (count != 0)
             {
-                double acturialRate = Inter.Calculate(currentRateCurve, indice + alpha);
+                double acturialRate = Math.Round(Inter.Calculate(currentRateCurve, indice + alpha), 2);
                 if (count == 1)
                     res += (bond.Nominal + couponValue) / Math.Pow((1 + acturialRate), indice + alpha);
                 else
@@ -71,7 +69,7 @@ namespace TP_Pricer
                 indice += bond.Periodicity;
                 count--;
             }
-            return res;
+            return Math.Round(res, 2);
         }
 
     }
