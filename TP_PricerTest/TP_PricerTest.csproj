@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PricerTest.cs" />
     <Compile Include="InterpolerTest.cs" />
     <Compile Include="RepoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

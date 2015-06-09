@@ -13,7 +13,6 @@ namespace TP_Pricer
     {
         public double CalculateInterpolation(RateCurve rateCurve, double alpha)
         {
-
             double acturialRate = 0.00;
             double x1, y1, x2, y2 = 0.00;
             int idx = 0;
