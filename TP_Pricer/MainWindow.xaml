@@ -1,17 +1,22 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" x:Class="TP_Pricer.MainWindow"
-        Title="MainWindow" Height="599.695" Width="753.354">
+        xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:local="clr-namespace:TP_Pricer" x:Class="TP_Pricer.MainWindow"
+        Title="MainWindow" Height="599.695" Width="1000" FontSize="16">
+    <Window.Resources>
+        <dx:IEnumerableDataSource x:Key="IEnumerableDataSource">
+            <dx:DesignDataManager.DesignData>
+                <dx:DesignDataSettings DataObjectType="{x:Type local:Point}" RowCount="5"/>
+            </dx:DesignDataManager.DesignData>
+        </dx:IEnumerableDataSource>
+    </Window.Resources>
     <Grid>
 
-        <dxc:ChartControl HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="550" Width="725">
+        <dxc:ChartControl x:Name="RateCurveChart" Margin="10" FontFamily="Calibri" >
             <dxc:ChartControl.Legend>
                 <dxc:Legend/>
             </dxc:ChartControl.Legend>
-            <dxc:XYDiagram2D>
-                <dxc:BarSideBySideSeries2D DisplayName="Rate Curve"/>
-            </dxc:XYDiagram2D>
+
         </dxc:ChartControl>
 
     </Grid>

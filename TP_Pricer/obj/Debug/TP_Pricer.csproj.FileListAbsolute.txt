@@ -26,3 +26,5 @@ C:\Users\Alex NGUYEN\Desktop\TP_Pricer\TP_Pricer\obj\Debug\TP_Pricer.Properties.
 C:\Users\Alex NGUYEN\Desktop\TP_Pricer\TP_Pricer\obj\Debug\TP_Pricer.csproj.GenerateResource.Cache
 C:\Users\alex.nguyen\Documents\Visual Studio 2013\Projects\TP_Pricer\TP_Pricer\obj\Debug\TP_Pricer.DataRessources.resources
 C:\Users\alex.nguyen\documents\visual studio 2013\Projects\TP_Pricer\TP_Pricer\obj\Debug\TP_Pricer.exe.licenses
+C:\Users\alex.nguyen\documents\visual studio 2013\Projects\TP_Pricer\TP_Pricer\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\alex.nguyen\documents\visual studio 2013\Projects\TP_Pricer\TP_Pricer\obj\Debug\TP_Pricer_MarkupCompile.lref

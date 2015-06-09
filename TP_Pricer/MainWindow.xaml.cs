@@ -16,6 +16,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Data;
 using System.Globalization;
+using DevExpress.Xpf.Charts;
 
 namespace TP_Pricer
 {
@@ -24,18 +25,56 @@ namespace TP_Pricer
     /// </summary>
     public partial class MainWindow : Window
     {
+        public LineStackedSeries2D Initialized_Chart(DateTime pricingDate, DateTime maturity)
+        {
+            XYDiagram2D MyDiagram = new XYDiagram2D();
+            RateCurveChart.Diagram = MyDiagram;
+
+            LineStackedSeries2D series = new LineStackedSeries2D();
+
+            MyDiagram.Series.Add(series);
+
+            series.ArgumentScaleType = ScaleType.DateTime;
+
+            MyDiagram.AxisX = new AxisX2D();
+            MyDiagram.AxisY = new AxisY2D();
+
+            MyDiagram.AxisX.WholeRange = new Range();
+            MyDiagram.AxisY.WholeRange = new Range();
+
+            MyDiagram.AxisX.WholeRange.SetMinMaxValues(pricingDate, maturity);
+            MyDiagram.AxisY.WholeRange.SetMinMaxValues(90, 110);
+
+            return series;
+        }
+
         public MainWindow()
         {
             InitializeComponent();
 
-            RateRepository repo = new RateRepository(TP_Pricer.DataRessources.taux2);
-            DateTime emissionDate = new DateTime(1993, 01, 01);
-            DateTime maturity = new DateTime(1994, 01, 01);
-            DateTime pricingDate = new DateTime(1993, 01, 04);
-            Bond bond = new Bond(emissionDate, maturity, 0.5, 100, 0.05);
-            Pricer pr = new Pricer(bond, DataRessources.taux2);
+            var repo = new RateRepository(TP_Pricer.DataRessources.taux2);
+            var emissionDate = new DateTime(1993, 01, 01);
+            var maturity = new DateTime(1994, 01, 01);
+            var pricingDate = new DateTime(1993, 01, 04);
+            var bond = new Bond(emissionDate, maturity, 0.5, 100, 0.05);
+            var pr = new Pricer(bond, DataRessources.taux2);
+            var p = new List<Point>();
+            double res = 0;
 
-            double res = pr.CalculateFullBond(bond, pricingDate);
+            LineStackedSeries2D series = Initialized_Chart(pricingDate, maturity);
+
+            while (pricingDate.CompareTo(maturity) <= 0)
+            {
+                res = pr.CalculateFullBond(bond, pricingDate);
+                p.Add(new Point(pricingDate, res));
+                pricingDate = pricingDate.AddMonths(6);
+            }
+
+            foreach (var point in p)
+            {
+                series.Points.Add(new SeriesPoint(point.date, point.value));
+            }
+
         }
 
     }

@@ -24,6 +24,9 @@ namespace TP_Pricer
                 idx++;
             }
 
+            if (idx == 120)
+                idx = 0;
+
             x1 = rateCurve.Items[idx].Duration;
             x2 = rateCurve.Items[idx + 1].Duration;
             y1 = rateCurve.Items[idx].Rate;
