@@ -13,6 +13,7 @@ namespace TP_Pricer
         public double Periodicity { get; private set; }
         public double Nominal { get; private set; }
         public double Rate { get; private set; }
+        public double Alpha { get; set; }
 
         public Bond(DateTime emission, DateTime maturity, double periodicity,
             double nominal, double rate)

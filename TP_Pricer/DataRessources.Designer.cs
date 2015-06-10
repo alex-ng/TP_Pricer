@@ -70,8 +70,8 @@ namespace TP_Pricer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Date; ZC025YR; ZC050YR
-        ///01/01/1993;1,1;1,1
+        ///   Looks up a localized string similar to Date; ZC025YR; ZC050YR; 
+        ///01/01/1993;1,1;1,1; 
         ///.
         /// </summary>
         public static string tauxlineaire {
@@ -81,13 +81,28 @@ namespace TP_Pricer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Date; ZC025YR; ZC050YR; ZC075YR; ZC100YR; ZC125YR; ZC150YR; ZC175YR; ZC200YR
-        ///01/01/1993;0,001894777;0,0030135;0,004450681;0,006076978;0,007796785;0,009540584;0,011259098;0,01291864
+        ///   Looks up a localized string similar to Date; ZC025YR; ZC050YR; ZC075YR; ZC100YR; ZC125YR; ZC150YR; ZC175YR; ZC200YR; 
+        ///01/01/1993;0,001894777;0,0030135;0,004450681;0,006076978;0,007796785;0,009540584;0,011259098;0,01291864; 
+        ///02/01/1993;0,001894777;0,0030135;0,004450681;0,006076978;0,007796785;0,009540584;0,011259098;0,01291864; 
+        ///03/01/1993;0,001894777;0,0030135;0,004450681;0,006076978;0,007796785;0,009540584;0,011259098;0,01291864; 
         ///.
         /// </summary>
         public static string tauxtest {
             get {
                 return ResourceManager.GetString("tauxtest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date; ZC300YR; ZC500YR; ;;;;;; 
+        ///01/01/1993;3;5; ;;;;;; 
+        ///;;;;;;;;; 
+        ///;;;;;;;;; 
+        ///.
+        /// </summary>
+        public static string tauxtest2 {
+            get {
+                return ResourceManager.GetString("tauxtest2", resourceCulture);
             }
         }
     }

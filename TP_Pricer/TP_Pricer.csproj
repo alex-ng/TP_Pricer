@@ -120,6 +120,7 @@
     <None Include="Resources\taux2.csv" />
     <None Include="Resources\tauxlineaire.csv" />
     <None Include="Resources\tauxtest.csv" />
+    <None Include="Resources\tauxtest2.csv" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

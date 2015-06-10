@@ -25,9 +25,8 @@ namespace TP_Pricer
     /// </summary>
     public partial class MainWindow : Window
     {
-        public LineStackedSeries2D Initialized_Chart(DateTime pricingDate, DateTime maturity)
+        public LineStackedSeries2D Initialized_Chart(DateTime pricingDate, DateTime maturity, XYDiagram2D MyDiagram)
         {
-            XYDiagram2D MyDiagram = new XYDiagram2D();
             RateCurveChart.Diagram = MyDiagram;
 
             LineStackedSeries2D series = new LineStackedSeries2D();
@@ -43,8 +42,7 @@ namespace TP_Pricer
             MyDiagram.AxisY.WholeRange = new Range();
 
             MyDiagram.AxisX.WholeRange.SetMinMaxValues(pricingDate, maturity);
-            MyDiagram.AxisY.WholeRange.SetMinMaxValues(90, 110);
-
+            
             return series;
         }
 
@@ -52,22 +50,28 @@ namespace TP_Pricer
         {
             InitializeComponent();
 
-            var repo = new RateRepository(TP_Pricer.DataRessources.taux2);
             var emissionDate = new DateTime(1993, 01, 01);
-            var maturity = new DateTime(1994, 01, 01);
-            var pricingDate = new DateTime(1993, 01, 04);
+            var maturity = new DateTime(2013, 01, 01);
+            var pricingDate = new DateTime(1993, 01, 01);
             var bond = new Bond(emissionDate, maturity, 0.5, 100, 0.05);
-            var pr = new Pricer(bond, DataRessources.taux2);
+            var pr = new Pricer(bond, DataRessources.taux2, pricingDate);
             var p = new List<Point>();
             double res = 0;
+            int min = 100;
+            int max = 100;
 
-            LineStackedSeries2D series = Initialized_Chart(pricingDate, maturity);
+            var MyDiagram = new XYDiagram2D();
+            LineStackedSeries2D series = Initialized_Chart(pricingDate, maturity, MyDiagram);
 
             while (pricingDate.CompareTo(maturity) <= 0)
             {
                 res = pr.CalculateFullBond(bond, pricingDate);
                 p.Add(new Point(pricingDate, res));
-                pricingDate = pricingDate.AddMonths(6);
+                pricingDate = pricingDate.AddDays(15);
+                if (res > max)
+                    max = Convert.ToInt32(res);
+                if (res < min)
+                    min = Convert.ToInt32(res);
             }
 
             foreach (var point in p)
@@ -75,6 +79,7 @@ namespace TP_Pricer
                 series.Points.Add(new SeriesPoint(point.date, point.value));
             }
 
+            MyDiagram.AxisY.WholeRange.SetMinMaxValues(min, max);
         }
 
     }

@@ -19,10 +19,10 @@ namespace TP_PricerTest
             DateTime maturity = new DateTime(1994, 01, 01);
             DateTime pricingDate = new DateTime(1993, 01, 04);
             Bond bond = new Bond(emissionDate, maturity, 0.5, 100, 0.05);
-            Pricer pr = new Pricer(bond, DataRessources.taux2);
+            Pricer pr = new Pricer(bond, DataRessources.taux2, pricingDate);
 
             double res = pr.CalculateFullBond(bond, pricingDate);
-            Assert.AreEqual(98.29, res);
+            Assert.AreEqual(97.34, res);
         }
 
         [Test]
@@ -33,10 +33,10 @@ namespace TP_PricerTest
             DateTime maturity = new DateTime(1994, 01, 01);
             DateTime pricingDate = new DateTime(1993, 01, 01);
             Bond bond = new Bond(emissionDate, maturity, 0.5, 100, 0.05);
-            Pricer pr = new Pricer(bond, DataRessources.taux2);
+            Pricer pr = new Pricer(bond, DataRessources.taux2, pricingDate);
 
             double res = pr.CalculateFullBond(bond, pricingDate);
-            Assert.AreEqual(98.24, res);
+            Assert.AreEqual(97.29, res);
         }
     }
 }

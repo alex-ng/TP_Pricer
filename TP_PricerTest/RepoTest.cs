@@ -18,7 +18,7 @@ namespace TP_PricerTest
         [Test]
         public void Repo_Get_RateCurve_By_Date()
         {
-           RateRepository repo = new RateRepository(TP_Pricer.DataRessources.tauxtest);
+            RateRepository repo = new RateRepository(TP_Pricer.DataRessources.tauxtest);
             DateTime date = new DateTime(1993, 01, 01);
             List<RateCurveItem> list = new List<RateCurveItem>();
             list.Add(new RateCurveItem(0.25, 1.1));
@@ -31,4 +31,3 @@ namespace TP_PricerTest
         }
     }
 }
- 
