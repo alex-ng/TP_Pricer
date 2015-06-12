@@ -1,15 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="C:\Users\alex.nguyen\Documents\Visual Studio 2013\Projects\TP_Pricer\TP_PricerTest\bin\Debug\TP_PricerTest.dll" total="1" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2015-06-10" time="15:29:43">
+<test-results name="C:\Users\alex.nguyen\Documents\Visual Studio 2013\Projects\TP_Pricer\TP_PricerTest\bin\Debug\TP_PricerTest.dll" total="10" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2015-06-12" time="14:58:18">
   <environment nunit-version="2.6.4.14350" clr-version="2.0.50727.5485" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="C:\Users\alex.nguyen\Documents\Visual Studio 2013\Projects\TP_Pricer\TP_PricerTest\bin\Debug" machine-name="PC0014" user="alex.nguyen" user-domain="ACENSI" />
   <culture-info current-culture="fr-FR" current-uiculture="fr-FR" />
-  <test-suite type="Assembly" name="C:\Users\alex.nguyen\Documents\Visual Studio 2013\Projects\TP_Pricer\TP_PricerTest\bin\Debug\TP_PricerTest.dll" executed="True" result="Success" success="True" time="2.176" asserts="0">
+  <test-suite type="Assembly" name="C:\Users\alex.nguyen\Documents\Visual Studio 2013\Projects\TP_Pricer\TP_PricerTest\bin\Debug\TP_PricerTest.dll" executed="True" result="Success" success="True" time="4.486" asserts="0">
     <results>
-      <test-suite type="Namespace" name="TP_PricerTest" executed="True" result="Success" success="True" time="2.161" asserts="0">
+      <test-suite type="Namespace" name="TP_PricerTest" executed="True" result="Success" success="True" time="4.471" asserts="0">
         <results>
-          <test-suite type="TestFixture" name="PricerTest" executed="True" result="Success" success="True" time="2.159" asserts="0">
+          <test-suite type="TestFixture" name="InterpolerTest" executed="True" result="Success" success="True" time="1.715" asserts="0">
             <results>
-              <test-case name="TP_PricerTest.PricerTest.Test_Calulate_FullBond_At_Empty_Date" executed="True" result="Success" success="True" time="2.147" asserts="1" />
+              <test-case name="TP_PricerTest.InterpolerTest.Calculate_Interpolation_On_Duration_Inferior_025" executed="True" result="Success" success="True" time="0.986" asserts="1" />
+              <test-case name="TP_PricerTest.InterpolerTest.Calculate_Interpolation_On_Duration_Superior_Max_Duration" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+              <test-case name="TP_PricerTest.InterpolerTest.Calculate_Interpolation_On_Linear_RateCurve" executed="True" result="Success" success="True" time="0.697" asserts="1" />
+              <test-case name="TP_PricerTest.InterpolerTest.Calculate_Interpolation_On_Normal_RateCurve" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+              <test-case name="TP_PricerTest.InterpolerTest.Calculate_Linear_Interpolation_On_Integer" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="PricerTest" executed="True" result="Success" success="True" time="2.736" asserts="0">
+            <results>
+              <test-case name="TP_PricerTest.PricerTest.Test_Calulate_FullBond" executed="True" result="Success" success="True" time="1.381" asserts="1" />
+              <test-case name="TP_PricerTest.PricerTest.Test_Calulate_FullBond_At_Empty_Date" executed="True" result="Success" success="True" time="1.352" asserts="1" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="RepoTest" executed="True" result="Success" success="True" time="0.010" asserts="0">
+            <results>
+              <test-case name="TP_PricerTest.RepoTest.Repo_Get_RateCurve_By_Date" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+              <test-case name="TP_PricerTest.RepoTest.Repo_Get_RateCurve_By_Date_With_Non_Existing_Date" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+              <test-case name="TP_PricerTest.RepoTest.Repo_Get_RateCurve_By_Date_With_Rate_Equals_To_NA" executed="True" result="Success" success="True" time="0.001" asserts="1" />
             </results>
           </test-suite>
         </results>

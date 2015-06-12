@@ -18,16 +18,36 @@ namespace TP_PricerTest
         [Test]
         public void Repo_Get_RateCurve_By_Date()
         {
-            RateRepository repo = new RateRepository(TP_Pricer.DataRessources.tauxtest);
-            DateTime date = new DateTime(1993, 01, 01);
-            List<RateCurveItem> list = new List<RateCurveItem>();
-            list.Add(new RateCurveItem(0.25, 1.1));
-            list.Add(new RateCurveItem(0.50, 1.1));
+            var repo = new RateRepository(TP_Pricer.DataRessources.tauxtest);
+            var date = new DateTime(1993, 01, 01);
 
-            RateCurve r = new RateCurve(date, list);
             RateCurve res = repo.GetRateCurveByDate(date);
 
             Assert.AreEqual(0.0030135, res.Items[1].Rate);
+        }
+
+        [Test]
+        public void Repo_Get_RateCurve_By_Date_With_Non_Existing_Date()
+        {
+            var repo = new RateRepository(TP_Pricer.DataRessources.tauxtest);
+            var date = new DateTime(1993, 01, 04);
+            var expectedDate = new DateTime(1993, 01, 03);
+
+            RateCurve res = repo.GetRateCurveByDate(date);
+
+            Assert.AreEqual(expectedDate, res.Date);
+        }
+
+        [Test]
+        public void Repo_Get_RateCurve_By_Date_With_Rate_Equals_To_NA()
+        {
+            var repo = new RateRepository(TP_Pricer.DataRessources.tauxtest);
+            var date = new DateTime(1993, 01, 02);
+            var expectedDate = new DateTime(1993, 01, 03);
+
+            RateCurve res = repo.GetRateCurveByDate(date);
+
+            Assert.AreEqual(expectedDate, res.Date);
         }
     }
 }

@@ -51,8 +51,8 @@ namespace TP_Pricer
             InitializeComponent();
 
             var emissionDate = new DateTime(1993, 01, 01);
-            var maturity = new DateTime(2013, 01, 01);
-            var pricingDate = new DateTime(1993, 01, 01);
+            var maturity = new DateTime(2011, 01, 01);
+            var pricingDate = new DateTime(1993, 01, 04);
             var bond = new Bond(emissionDate, maturity, 0.5, 100, 0.05);
             var pr = new Pricer(bond, DataRessources.taux2, pricingDate);
             var p = new List<Point>();

@@ -39,7 +39,7 @@ namespace TP_PricerTest
         }
 
         [Test]
-        public void Calculate_Interpolation_On_Normal_RateCurve2()
+        public void Calculate_Linear_Interpolation_On_Integer()
         {
             Interpoler inter = new Interpoler(new LinearInterpoler());
             var date = new DateTime(1993, 01, 01);
@@ -51,6 +51,37 @@ namespace TP_PricerTest
             double acturial = inter.Calculate(res, 4);
 
             Assert.AreEqual(4, acturial);
+        }
+
+        [Test]
+        public void Calculate_Interpolation_On_Duration_Inferior_025()
+        {
+            Interpoler inter = new Interpoler(new LinearInterpoler());
+            var date = new DateTime(1993, 01, 01);
+            var li = new List<RateCurveItem>();
+
+            li.Add(new RateCurveItem(0.25, 1));
+            li.Add(new RateCurveItem(0.50, 2));
+            RateCurve res = new RateCurve(date, li);
+            double acturial = inter.Calculate(res, 0.20);
+
+            Assert.AreEqual(1, acturial);
+        }
+
+        [Test]
+        public void Calculate_Interpolation_On_Duration_Superior_Max_Duration()
+        {
+            Interpoler inter = new Interpoler(new LinearInterpoler());
+            var date = new DateTime(1993, 01, 01);
+            var li = new List<RateCurveItem>();
+
+            li.Add(new RateCurveItem(0.25, 1));
+            li.Add(new RateCurveItem(0.50, 2));
+            li.Add(new RateCurveItem(0.75, 3));
+            RateCurve res = new RateCurve(date, li);
+            double acturial = inter.Calculate(res, 0.95);
+
+            Assert.AreEqual(3, acturial);
         }
     }
 }

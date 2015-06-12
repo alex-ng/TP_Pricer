@@ -19,6 +19,8 @@ namespace TP_Pricer
 
             if (alpha < 0.25)
                 return rateCurve.Items[0].Rate;
+            if (alpha > rateCurve.Items[rateCurve.Items.Count - 1].Duration)
+                return rateCurve.Items[rateCurve.Items.Count - 1].Rate;
 
             foreach (var item in rateCurve.Items)
             {

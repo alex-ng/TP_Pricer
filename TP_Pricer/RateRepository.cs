@@ -114,7 +114,7 @@ namespace TP_Pricer
 
             foreach (var item in _rateCurve)
             {
-                if (date.CompareTo(new DateTime(2011, 07, 29)) > 0)
+                if (date.CompareTo(_rateCurve.Last().Date) > 0)
                     return _rateCurve.Last();
                 if (item.Date.Equals(date) && !item.Items[0].Rate.Equals(-1))
                     return item;
